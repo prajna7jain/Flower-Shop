@@ -198,3 +198,20 @@ footer {
 footer p {
     margin-top: 10px;
 }
+
+ .card {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin: 10px;
+      border-radius: 8px;
+      width: 250px;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
