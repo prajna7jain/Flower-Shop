@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign In / Sign Up</title>
+  <link rel="stylesheet" href="log.css">
+</head>
+<body>
+  <div class="container">
+    <div class="form-box">
+      <div class="button-box">
+        <button id="signinBtn" onclick="showForm('signin')">Sign In</button>
+        <button id="signupBtn" onclick="showForm('signup')">Sign Up</button>
+      </div>
+
+      <form id="signin-form" class="form active">
+        <h2>Welcome Back</h2>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit" class="submit-btn">Sign In</button>
+      </form>
+
+      <form id="signup-form" class="form">
+        <h2>Create Account</h2>
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit" class="submit-btn">Sign Up</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="log.js"></script>
+</body>
+</html>

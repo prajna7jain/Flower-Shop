@@ -1,29 +1,22 @@
-// Extend interactivity here! Example: Show a pop-up when clicking 'Shop Now'
-document.querySelector("button").addEventListener("click", function() {
-    alert("Redirecting to the shop page!");
-});
-
-fetch('flower.json')
+fetch('flowers.json')
   .then(response => response.json())
-  .then(data => {
+  .then(datas => {
     const container = document.getElementById('flower-container');
+    container.classList.add('flower-grid');
 
-    data.forEach(flower => {
-      const card = document.createElement('div');
-      card.className = 'card';
+    datas.data.forEach(flower => {
+      const flowerCard = document.createElement('div');
+      flowerCard.className = 'flower';
 
-      card.innerHTML = `
-        <a href="${flower.image_url}" target="_blank">
-          <img src="${flower.image_url}" alt="${flower.name}">
-        </a>
-        <h3>${flower.name}</h3>
-        <p>Type: ${flower.type}</p>
-        <p>Price: ₹${flower.price_in_inr}</p>
-        <p>Image:${image_url}</p>
+      flowerCard.innerHTML = `
+        <img src="${flower.default_image?.medium_url || 'imges/default.jpg'}" alt="${flower.common_name}">
+        <h3>${flower.common_name}</h3>
+        <p><em>${flower.other_name?.[0] || ''}</em></p>
+        <p><em>${flower.scientific_name?.[0] || ''}</em></p>
+
       `;
 
-      container.appendChild(card);
+      container.appendChild(flowerCard);
     });
   })
   .catch(error => console.error('Error loading JSON:', error));
-
