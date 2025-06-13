@@ -1,22 +1,48 @@
-fetch('flowers.json')
+let flowerData = []; 
+
+// Fetch the flower data and display
+fetch('Plants.json')
   .then(response => response.json())
   .then(datas => {
-    const container = document.getElementById('flower-container');
-    container.classList.add('flower-grid');
+    flowerData = datas.data;
+    displayFlowers(flowerData); 
+  });
 
-    datas.data.forEach(flower => {
-      const flowerCard = document.createElement('div');
-      flowerCard.className = 'flower';
+// Display flower cards
+function displayFlowers(data) {
+  const container = document.getElementById('flower-container');
+  container.innerHTML = ''; 
 
-      flowerCard.innerHTML = `
-        <img src="${flower.default_image?.medium_url || 'imges/default.jpg'}" alt="${flower.common_name}">
-        <h3>${flower.common_name}</h3>
-        <p><em>${flower.other_name?.[0] || ''}</em></p>
-        <p><em>${flower.scientific_name?.[0] || ''}</em></p>
+  data.forEach(flower => {
+    const meaning = flower.meaning?.join(', ') || 'N/A';
+    const otherNames = flower.other_name?.join(', ') || 'N/A';
 
-      `;
+    const flowerCard = document.createElement('div');
+    flowerCard.className = 'flower';
 
-      container.appendChild(flowerCard);
-    });
-  })
-  .catch(error => console.error('Error loading JSON:', error));
+    flowerCard.innerHTML = `
+      <img src="${flower.default_image?.medium_url || 'imges/default.jpg'}" alt="${flower.common_name}" />
+      <h3>${flower.color}</h3>
+      <p><strong>Meaning:</strong> ${meaning}</p>
+      <p><strong>Other Names:</strong> ${otherNames}</p>
+    `;
+
+    container.appendChild(flowerCard);
+  });
+}
+
+// Search functionality
+document.getElementById('searchInput').addEventListener('input', function () {
+  const keyword = this.value.toLowerCase();
+
+  const filtered = flowerData.filter(flower =>
+    flower.common_name?.toLowerCase().includes(keyword) ||
+    flower.scientific_name?.some(name => name.toLowerCase().includes(keyword)) ||
+    flower.other_name?.some(name => name.toLowerCase().includes(keyword))
+  );
+
+  displayFlowers(filtered);
+});
+
+
+
